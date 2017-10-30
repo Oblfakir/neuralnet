@@ -85,40 +85,10 @@ namespace NeuralNet_Backpropagation
 
             for (int j = 0; j < _k; j++)
             {
-                var inputs1 = new double[_inputsNum];
-
-                for (int k = 0; k < _inputsNum; k++)
-                {
-                    inputs1[k] = _random.NextDouble() * 2 - 1;
-                }
-                _layer1[j] = new Neuron(_inputsNum, ActivationFunctions.Sigma)
-                {
-                    Weights = inputs1.ToList(),
-                    Bias = 0
-                };
-
-                var inputs2 = new double[_k];
-                for (int k = 0; k < _k; k++)
-                {
-                    inputs2[k] = _random.NextDouble() * 2 - 1;
-                }
-                _layer2[j] = new Neuron(_k, ActivationFunctions.Sigma)
-                {
-                    Weights = inputs2.ToList(),
-                    Bias = 0
-                };
+                _layer1[j] = new Neuron(_inputsNum, ActivationFunctions.Sigma, _random);
+                _layer2[j] = new Neuron(_k, ActivationFunctions.Sigma, _random);
             }
-            var inputs = new double[_k];
-
-            for (int k = 0; k < _k; k++)
-            {
-                inputs[k] = _random.NextDouble() * 2 - 1;
-            }
-            _outputNeuron = new Neuron(_k, ActivationFunctions.Sigma)
-            {
-                Weights = inputs.ToList(),
-                Bias = 0
-            };
+            _outputNeuron = new Neuron(_k, ActivationFunctions.Sigma, _random);
         }
     }
 }

@@ -40,22 +40,20 @@ namespace NeuralNet_Backpropagation
         public ActivationFunctions Function;
         public double Bias;
 
-        public Neuron(int inputsCount, ActivationFunctions function)
+        public Neuron(int inputsCount, ActivationFunctions function, Random random, double bias = 0)
         {
             InputsCount = inputsCount;
             Weights = new List<double>(inputsCount);
             Function = function;
-            //Initialize();
-        }
 
-        private void Initialize()
-        {
-            var random = new Random();
-            Bias = random.NextDouble() - 0.5;
-            for (int i = 0; i < Weights.Count; i++)
+            var weights = new double[InputsCount];
+
+            for (int k = 0; k < InputsCount; k++)
             {
-                Weights[i] = random.NextDouble() - 0.5;
+                weights[k] = random.NextDouble() * 2 - 1;
             }
+            Weights = weights.ToList();
+            Bias = bias;
         }
 
         public void Learn(double[] deltas)
@@ -99,11 +97,6 @@ namespace NeuralNet_Backpropagation
                 return Functions.Tanh(value);
             }
             return 0;
-        }
-
-        public void Save()
-        {
-
         }
     }
 }
