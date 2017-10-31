@@ -1,5 +1,5 @@
-const LEARNING_RATE = 0.5;
-const NEURONS_PER_LAYER = 60;
+let LEARNING_RATE = 0.5;
+let NEURONS_PER_LAYER = 60;
 const INPUTS_COUNT = 3;
 
 class Neuron {
@@ -91,19 +91,56 @@ class NeuralNet {
 }
 
 window.onload = () => {
+    document.getElementById('learningRate').value = 0.5;
+    document.getElementById('neuronsNum').value = 10;
+    document.getElementById('examplesNum').value = 1000;
+    document.getElementById('function').value = 'x & y ^ z';
+}
+
+document.getElementById('start').onclick = () => {
+    const learningRate = document.getElementById('learningRate');
+    const neuronsNum = document.getElementById('neuronsNum');
+    const examplesNum = document.getElementById('examplesNum');
+    const func = document.getElementById('function');
+
+    LEARNING_RATE = +learningRate.value;
+    NEURONS_PER_LAYER = +neuronsNum.value;
+
+    const results = [];
     const nn = new NeuralNet();
-    for (let i = 0; i < 3000; i++)
+    for (let i = 0; i < +examplesNum.value; i++)
     {
         var x = getNextInt(2) != 0;
         var y = getNextInt(2) != 0;
         var z = getNextInt(2) != 0;
 
         var input = [x ? 1.0 : 0.0, y ? 1.0 : 0.0, z ? 1.0 : 0.0 ];
-        var result = x | y ^ z ? 1.0 : 0.0;
-        console.log(result, nn.learn(input, result));
+        var result = eval(func.value+ ' ? 1.0 : 0.0');
+        results.push({output: nn.learn(input, result), expected: result});
     }
+    outputResults(results);
 }
 
 function getNextInt(n) {
     return Math.floor(Math.random()*n)
+}
+
+function outputResults(arr){
+    var root = document.getElementById('root');
+    for (let i = 0; i < root.children.length; i++) {
+        root.children[i].remove();
+    }
+    const container = document.createElement('div');
+    for (let i = 0; i < arr.length; i++) {
+        const element = document.createElement('div');
+        const expected = document.createElement('span');
+        expected.innerText = `Expected output: ${arr[i].expected}`;
+        const output = document.createElement('span');
+        output.innerText = `   Net output: ${arr[i].output}`;
+        output.className = Math.abs(arr[i].expected - arr[i].output) < 0.2 ? 'green' : 'red' ;
+        element.appendChild(expected);
+        element.appendChild(output);
+        container.appendChild(element);
+    }
+    root.appendChild(container);
 }
