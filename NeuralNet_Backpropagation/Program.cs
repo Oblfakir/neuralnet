@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NeuralNet_Backpropagation
 {
@@ -18,19 +14,13 @@ namespace NeuralNet_Backpropagation
             const string symbol2 = "^";
 
             var random = new Random();
-
             var learn = new LearningFunction(random, number, symbol1, symbol2);
             var nnet = new NeuralNet(inputsNum, k, learningRate, random);
 
-            for (int i = 0; i < learn.Inputs.Count; i++)
+            for (int i = 0; i < number; i++)
             {
-                var num = $"i: {i} ";
-                var input = $" x:{learn.Inputs[i][0]} y:{learn.Inputs[i][1]} z:{learn.Inputs[i][2]}";
-                var target = @" target " + learn.Outputs[i];
-                var a = nnet.Learn(learn.Inputs[i], learn.Outputs[i]);
-                var result = @" result " + a.ToString("##0.####");
-                var delta = $"delta {((learn.Outputs[i] - a) * 100).ToString("##0.####")}%";
-                Console.WriteLine($"{num} {input} {target} {result} {delta}");
+                var result = new Result(i, learn.Inputs[i], learn.Outputs[i], nnet.Learn(learn.Inputs[i], learn.Outputs[i]));
+                result.Write();
             }
         }
     }
