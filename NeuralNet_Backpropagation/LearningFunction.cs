@@ -10,8 +10,10 @@ namespace NeuralNet_Backpropagation
     {
         public List<double[]> Inputs = new List<double[]>();
         public List<double> Outputs = new List<double>();
+        public double[] Input;
+        public double Output;
 
-        public LearningFunction(Random random, int num, string symbol1, string symbol2)
+        public void GetAllFunctions(Random random, int num, string symbol1, string symbol2)
         {
             for (int i = 0; i < num; i++)
             {
@@ -24,6 +26,16 @@ namespace NeuralNet_Backpropagation
                 Inputs.Add(input);
                 Outputs.Add(result);
             }
+        }
+
+        public void GetNextLearningFunction(Random random, string symbol1, string symbol2)
+        {
+            var x = random.Next(0, 2) != 0;
+            var y = random.Next(0, 2) != 0;
+            var z = random.Next(0, 2) != 0;
+
+            Input = new[] { x ? 1.0 : 0.0, y ? 1.0 : 0.0, z ? 1.0 : 0.0 };
+            Output = GetResult(x, y, z, symbol1, symbol2);
         }
 
         private double GetResult(bool x, bool y, bool z, string symbol1, string symbol2)
