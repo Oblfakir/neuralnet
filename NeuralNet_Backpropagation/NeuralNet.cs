@@ -8,7 +8,7 @@ namespace NeuralNet_Backpropagation
 {
     public class NeuralNet
     {
-        private const double LearningRate = 0.5;
+        private readonly double _learningRate;
         private readonly int _inputsNum;
         private readonly int _k;
 
@@ -18,8 +18,9 @@ namespace NeuralNet_Backpropagation
 
         private readonly Random _random;
 
-        public NeuralNet(int inputsNum, int neuronsPerLayer, Random random)
+        public NeuralNet(int inputsNum, int neuronsPerLayer, double learningRate, Random random)
         {
+            _learningRate = learningRate;
             _inputsNum = inputsNum;
             _k = neuronsPerLayer;
             _random = random;
@@ -47,7 +48,7 @@ namespace NeuralNet_Backpropagation
 
             for (int j = 0; j < _k; j++)
             {
-                _outputNeuron.Weights[j] = _outputNeuron.Weights[j] - LearningRate * deByDnet * layer2Answers[j];
+                _outputNeuron.Weights[j] = _outputNeuron.Weights[j] - _learningRate * deByDnet * layer2Answers[j];
             }
 
             for (int j = 0; j < _k; j++)
@@ -55,7 +56,7 @@ namespace NeuralNet_Backpropagation
                 for (int m = 0; m < _k; m++)
                 {
                     _layer2[j].Weights[m] = _layer2[j].Weights[m] -
-                                            LearningRate * deByDnet * _outputNeuron.Weights[j] * layer2Answers[j] *
+                                            _learningRate * deByDnet * _outputNeuron.Weights[j] * layer2Answers[j] *
                                             (1 - layer2Answers[j]) * layer1Answers[m];
                 }
             }
@@ -70,7 +71,7 @@ namespace NeuralNet_Backpropagation
                         sum += _outputNeuron.Weights[k] * layer2Answers[k] * (1 - layer2Answers[k]) * _layer2[k].Weights[j];
                     }
                     _layer1[j].Weights[m] = _layer1[j].Weights[m] -
-                                            LearningRate * sum * deByDnet * layer1Answers[j] * (1 - layer1Answers[j]) *
+                                            _learningRate * sum * deByDnet * layer1Answers[j] * (1 - layer1Answers[j]) *
                                             input[m];
                 }
             }
