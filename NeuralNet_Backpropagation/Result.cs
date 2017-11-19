@@ -20,8 +20,10 @@ namespace NeuralNet_Backpropagation
             Y = $" y:{inputs[1]}";
             Z = $" z:{inputs[2]}";
             Target = $" target {target}";
-            Output = $" result {output.ToString("##0.####")}";
-            Delta = $" {((output - target) * 100).ToString("##0.####")}%";
+            Output = $" result {output:##0.#####}";
+            Delta = $" {((output - target) * 100):##0.#####}%";
+
+            res = inputs[0] + " "+ inputs[1] + " "+ inputs[2] + " "+ target + " " + output+" " + ((output - target) * 100);
         }
 
         public void Write()
@@ -31,8 +33,11 @@ namespace NeuralNet_Backpropagation
 
         public string Serialize()
         {
-            return $"{Number} {X} {Y} {Z} {Target} {Output} {Delta}";
+            return res;
+            //return $"{Number} {X} {Y} {Z} {Target} {Output} {Delta}";
         }
+
+        private string res;
 
         public string Number { get; set; }
         public string X { get; set; }

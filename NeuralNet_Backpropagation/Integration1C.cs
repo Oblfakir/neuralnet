@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace NeuralNet_Backpropagation
 {
-    public class Interaction1C
+    public class Integration1C
     {
         private int inputsNum = 3;
         private int k = 60;
@@ -19,10 +20,9 @@ namespace NeuralNet_Backpropagation
 
         public void Initialize(string initString)
         {
-            // {k}###{learningRate}###{symbol1}###{symbol2}
             var arr = initString.Split(new[] {"###"}, StringSplitOptions.None);
             k = int.Parse(arr[0]);
-            _learningRate = double.Parse(arr[1]);
+            double.TryParse(arr[1].Replace(",","."), NumberStyles.Any, CultureInfo.InvariantCulture, out _learningRate);
             _symbol1 = arr[2];
             _symbol2 = arr[3];
 
@@ -30,12 +30,21 @@ namespace NeuralNet_Backpropagation
             _learn = new LearningFunction();
             _neuralnet = new NeuralNet(inputsNum, k, _learningRate, _random);
         }
-        
+
+        public string Learn(int times)
+        {
+            for (int i = 0; i < times; i++)
+            {
+                _learn.GetNextLearningFunction(_random, _symbol1, _symbol2);
+                _neuralnet.Learn(_learn.Input, _learn.Output);
+            }
+            return times.ToString();
+        }
+
         public string GetNextResult(int i)
         {
             _learn.GetNextLearningFunction(_random, _symbol1, _symbol2);
             var result = new Result(i, _learn.Input, _learn.Output, _neuralnet.Learn(_learn.Input, _learn.Output));
-            result.Write();
             return result.Serialize();
         }
     }

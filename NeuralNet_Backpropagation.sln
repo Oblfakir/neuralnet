@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeuralNet_Backpropagation", "NeuralNet_Backpropagation\NeuralNet_Backpropagation.csproj", "{10C891F1-FEA0-42A1-9C69-AC6AE026B731}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetObjectToIDispatch", "NetObjectToIDispatch\NetObjectToIDispatch.csproj", "{C3E3ECFD-92B0-48C9-9A10-B8BA23D4C3ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{10C891F1-FEA0-42A1-9C69-AC6AE026B731}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10C891F1-FEA0-42A1-9C69-AC6AE026B731}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10C891F1-FEA0-42A1-9C69-AC6AE026B731}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3E3ECFD-92B0-48C9-9A10-B8BA23D4C3ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3E3ECFD-92B0-48C9-9A10-B8BA23D4C3ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3E3ECFD-92B0-48C9-9A10-B8BA23D4C3ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3E3ECFD-92B0-48C9-9A10-B8BA23D4C3ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B4F126C9-9DD2-48A5-885F-E6D0DF7FFA09}
 	EndGlobalSection
 EndGlobal
